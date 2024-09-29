@@ -1,6 +1,6 @@
 """EX02 - Chardle - A cute step toward Wordle."""
 
-__author__ = "7305742000"
+__author__ = "730574200"
 
 
 def input_word() -> str:
@@ -43,7 +43,10 @@ def contains_char(word: str, letter: str) -> None:
         print(letter + " found at index 4")
         instances = instances + 1
     if instances > 0:  # use another if here to print the instances if there are any
-        print(str(instances) + " instances of " + letter + " found in " + word)
+        if instances == 1:  # nest if to get specific 1 instance printed
+            print("1 instance of " + letter + " found in " + word)
+        else:
+            print(str(instances) + " instances of " + letter + " found in " + word)
     else:  # only else at the end otherwise you'd leave the function early
         print("No instances of " + letter + " found in " + word)
         return None
