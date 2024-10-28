@@ -75,5 +75,5 @@ def test_add_at_index_raises_indexerror() -> None:
         IndexError
     ):  # have to use pytest because this IndexError is not value
         add_at_index(
-            nums, 5, 4
-        )  # 4 is more than max index so index error and 5 not added
+            nums, 5, 6
+        )  # 6 is more than max index so index error and 5 not added

@@ -35,7 +35,7 @@ def sub(input: list[int], start: int, end: int) -> list[int]:
 
 def add_at_index(input: list[int], num_add: int, index_add: int) -> None:
     """adds new num at index of interest in list"""
-    if index_add < 0 or index_add > len(input) - 1:  # index error raised
+    if index_add < 0 or index_add > len(input):  # index error raised
         raise IndexError("Index is out of bounds for the input list")
     input.append(0)  # makes space to move to make room for new num
     backcount: int = (
