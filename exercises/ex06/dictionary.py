@@ -14,28 +14,27 @@ def invert(input_dict: dict[str, str]) -> dict[str, str]:
                 input_dict[key] == new_key
             ):  # if the input val (later inverted key) matches prev inverted key
                 raise KeyError("Oops! You can't have two of the same keys")
-        new_key: str = input_dict[key]  # input val is new key
-        new_val: str = key  # input key is new val
+        new_key = input_dict[key]  # input val is new key
+        new_val = key  # input key is new val
         inverted_input[new_key] = new_val
     return inverted_input
 
 
 def favorite_color(input_colors: dict[str, str]) -> str:
     """Returns most popular fav color in dict"""
-    counter1: int = 0  # counter holding fav color amount
-    counter2: int = 0  # test counter
+    counter_dict: dict[str, int] = {}  # tracks frequency of each color
     fav_color: str = ""  # placeholder fav color
-    for name in input_colors:  # loops each name in fav color input
-        test_color: str = input_colors[name]  # tests that color
-        if input_colors[name] != fav_color:  # if current color not known fav
-            for name2 in input_colors:  # loop again through colors
-                if (
-                    test_color == input_colors[name2]
-                ):  # for each color, if match to test
-                    counter2 += 1  # add to counter
-        if counter2 > counter1:  # if new fav there more than old fav
-            fav_color = test_color  # update fav
-            counter1 = counter2
+    for name in input_colors:  # for each name
+        color = input_colors[name]
+        if color in counter_dict:  # if there already, add to count
+            counter_dict[color] += 1
+        else:
+            counter_dict[color] = 1  # if not in counter, start counting
+    max_count: int = 0  # placeholder max
+    for color in counter_dict:  # goes through counted colors
+        if counter_dict[color] > max_count:
+            fav_color = color  # says that higher frequency color is fav
+            max_count = counter_dict[color]  # sets max count for that color
     return fav_color
 
 
@@ -67,7 +66,10 @@ def alphabetizer(input_list: list[str]) -> dict[str, list[str]]:
 
 def update_attendance(attendance: dict[str, list[str]], day: str, student: str) -> None:
     """updates attendance log with new student and day of school"""
-    if day in attendance:  # if day already there
-        attendance[day].append(student)  # records student attendance
+    if day in attendance:  # checks if already have role for that day
+        for person in attendance[day]:  # if so, checks to see if they're already there
+            if student == person:
+                return None  # duplicate name quits the function
+        attendance[day].append(student)  # otherwise mark student present
     else:
-        attendance[day] = [student]  # otherwise adds day for that student
+        attendance[day] = [student]  # if not started that day's role
